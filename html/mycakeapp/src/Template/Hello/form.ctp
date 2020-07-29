@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title><?= $title ?></title>
+  <title><?= h($title) ?></title>
   <style>
     h1 {
       font-size: 48pt;
@@ -21,10 +21,10 @@
 
 <body>
   <header class="row">
-    <h1><?= $title ?></h1>
+    <h1><?= h($title) ?></h1>
   </header>
   <div class="row">
-    <p><?= $message ?></p>
+    <p><?= h($message) ?></p>
   </div>
 </body>
 
