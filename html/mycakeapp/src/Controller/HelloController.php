@@ -8,6 +8,7 @@ class HelloController extends AppController
 {
     public function index()
     {
+        $this->viewBuilder()->setLayout('hello');
     }
 
     public function form()
