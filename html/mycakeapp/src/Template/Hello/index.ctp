@@ -43,7 +43,17 @@
         <td>
           <?= $this->Form->select(
             'Form1.select',
-            ['one' => '最初', 'two' => '真ん中', 'three' => '最後']
+            [
+              'one' => '最初',
+              'two' => '２番目',
+              'three' => '真ん中',
+              'four' => '４番目',
+              'five' => '最後'
+            ],
+            [
+              'multiple' => true,
+              'size' => 5
+            ]
           ) ?>
         </td>
       </tr>
