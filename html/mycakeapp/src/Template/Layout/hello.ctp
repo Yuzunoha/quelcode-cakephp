@@ -10,13 +10,13 @@
 
 <body>
   <header class="head row">
-    <?= $this->element('header', ['subtitle' => 'cakephp sample page']) ?>
+    <?= $this->element('header', $header) ?>
   </header>
   <div class="content row">
     <?= $this->fetch('content') ?>
   </div>
   <footer class="foot row">
-    <?= $this->element('footer', ['copyright' => 'YAMADA-TARO']) ?>
+    <?= $this->element('footer', $footer) ?>
   </footer>
 </body>
 

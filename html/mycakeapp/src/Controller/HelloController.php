@@ -13,7 +13,8 @@ class HelloController extends AppController
 
     public function index()
     {
-        $this->viewBuilder()->setLayout('hello');
+        $this->set('header', ['subtitle' => 'from Controller with Love♡コントローラから渡したheaderの値']);
+        $this->set('footer', ['copyright' => '名無しの権兵衛。コントローラから渡したfooterの値']);
     }
 
     public function form()
