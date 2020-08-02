@@ -9,7 +9,8 @@ class PeopleController extends AppController
 
   public function index()
   {
-    $data = $this->People->find('list');
+    $id = $this->request->query['id'] ?? 1;
+    $data = $this->People->get($id);
     $this->set('data', $data);
   }
 }
