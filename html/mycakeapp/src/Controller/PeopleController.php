@@ -27,4 +27,23 @@ class PeopleController extends AppController
     }
     return $this->redirect(['action' => 'index']);
   }
+
+  public function edit()
+  {
+    $id = $this->request->query['id'];
+    $entity = $this->People->get($id);
+    $this->set(compact('entity'));
+  }
+
+  public function update()
+  {
+    if ($this->request->isPost()) {
+      $data = $this->request->data['People'];
+      $id = $data['id'];
+      $entity = $this->People->get($id);
+      $this->People->patchEntity($entity, $data);
+      $this->People->save($entity);
+    }
+    return $this->redirect(['action' => 'index']);
+  }
 }
