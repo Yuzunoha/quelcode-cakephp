@@ -10,19 +10,20 @@ class CoinsController extends AppController
 
   public function index()
   {
-    echo '<pre>';
     $tester = new Tester;
-    $times = 10000;
-    $result = $tester->test($times);
-    $msg = $result ? '成功' : '失敗';
-    echo $times . ' 回のテスト : ' . $msg . '<br>';
-    echo '</pre>';
+    $tester->testAndDisp();
   }
 }
 
 class Tester
 {
-  public function test($times = 10000)
+  public function testAndDisp($times = 10000)
+  {
+    $result = $this->test($times);
+    $msg = $result ? '成功' : '失敗';
+    echo $times . ' 回のテスト : ' . $msg . '<br>';
+  }
+  public function test($times)
   {
     for ($i = 0; $i < $times; $i++) {
       if (false === $this->testOneTime()) {
