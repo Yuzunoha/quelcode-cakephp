@@ -11,12 +11,43 @@ class CoinsController extends AppController
   public function index()
   {
     echo '<pre>';
-    $scale = new Scales;
-    $coins = Coin::createCoinsForProbrem();
-    $solver = new Solver;
+    $tester = new Tester;
+    $times = 10000;
+    $result = $tester->test($times);
+    $msg = $result ? '成功' : '失敗';
+    echo $times . ' 回のテスト : ' . $msg . '<br>';
+    echo '</pre>';
+  }
+}
 
-    $result = $solver->solve($scale, $coins);
-    print_r($result);
+class Tester
+{
+  public function test($times = 10000)
+  {
+    for ($i = 0; $i < $times; $i++) {
+      if (false === $this->testOneTime()) {
+        return false;
+      }
+    }
+    return true;
+  }
+  private function testOneTime()
+  {
+    $solver = new Solver;
+    $scales = new Scales;
+    $coins = Coin::createCoinsForProbrem();
+
+    $result = $solver->solve($scales, $coins);
+    $resultCoin = $result[0];
+    $resultLabel = $result[1];
+
+    if (($resultCoin->getWeight() < 50) && ($resultLabel === '軽い')) {
+      return true;
+    }
+    if ((50 < $resultCoin->getWeight()) && ($resultLabel === '重い')) {
+      return true;
+    }
+    return false;
   }
 }
 
