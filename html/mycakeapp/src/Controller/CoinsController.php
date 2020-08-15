@@ -41,10 +41,10 @@ class Tester
     $resultCoin = $result[0];
     $resultLabel = $result[1];
 
-    if (($resultCoin->getWeight() < 50) && ($resultLabel === '軽い')) {
+    if (($resultCoin->getWeight() < Coin::$weightBasic) && ($resultLabel === '軽い')) {
       return true;
     }
-    if ((50 < $resultCoin->getWeight()) && ($resultLabel === '重い')) {
+    if ((Coin::$weightBasic < $resultCoin->getWeight()) && ($resultLabel === '重い')) {
       return true;
     }
     return false;
@@ -224,10 +224,12 @@ class Coin
   {
     return $this->weight;
   }
+
+  public static $weightBasic = 50;
   public static function createCoinsForProbrem()
   {
     $num = 12;
-    $weightBasic = 50;
+    $weightBasic = self::$weightBasic;
     $randomOffset = (random_int(0, 1) === 0) ? -1 : 1;
     $weightIrregular = $weightBasic + $randomOffset;
     $irregularIdx = random_int(0, $num - 1);
