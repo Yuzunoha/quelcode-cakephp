@@ -11,23 +11,24 @@ class CoinsController extends AppController
   public function index()
   {
     echo '<pre>';
-    $coins = Coin::createCoinsForProbrem();
-    foreach ($coins as $idx => $coin) {
-      echo $idx . ' ... ' . $coin->getWeight() . '<br>';
-    }
+    $scale = new Scales;
+    $coinsA = Coin::createCoinsForProbrem();
+    $coinsB = Coin::createCoinsForProbrem();
+    var_dump($scale->scale($coinsA, $coinsB));
   }
-}
-
-interface Scalable
-{
-  function getWeight();
 }
 
 class Scales
 {
+  public function scale($coinsA, $coinsB)
+  {
+    $totalWeightA = Coin::getTotalWeightOfCoins($coinsA);
+    $totalWeightB = Coin::getTotalWeightOfCoins($coinsB);
+    return ($totalWeightA <=> $totalWeightB);
+  }
 }
 
-class Coin implements Scalable
+class Coin
 {
   protected $weight;
   public function __construct($weight)
@@ -51,5 +52,13 @@ class Coin implements Scalable
       $coins[] = new Coin($weight);
     }
     return $coins;
+  }
+  public static function getTotalWeightOfCoins($coins)
+  {
+    $totalWeight = 0;
+    foreach ($coins as $coin) {
+      $totalWeight += $coin->getWeight();
+    }
+    return $totalWeight;
   }
 }
