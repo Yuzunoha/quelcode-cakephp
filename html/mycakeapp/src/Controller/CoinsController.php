@@ -18,7 +18,16 @@ class CoinsController extends AppController
   }
 }
 
-class Coin
+interface Scalable
+{
+  function getWeight();
+}
+
+class Scales
+{
+}
+
+class Coin implements Scalable
 {
   protected $weight;
   public function __construct($weight)
