@@ -12,16 +12,36 @@ class CoinsController extends AppController
   {
     echo '<pre>';
     $scale = new Scales;
-    $coinsA = Coin::createCoinsForProbrem();
-    $coinsB = Coin::createCoinsForProbrem();
-    var_dump($scale->scale($coinsA, $coinsB));
+    var_dump($scale->scale(
+      Coin::createCoinsForProbrem(),
+      Coin::createCoinsForProbrem()
+    ));
+    var_dump($scale->scale(
+      Coin::createCoinsForProbrem(),
+      Coin::createCoinsForProbrem()
+    ));
+    var_dump($scale->scale(
+      Coin::createCoinsForProbrem(),
+      Coin::createCoinsForProbrem()
+    ));
+    var_dump($scale->getCount());
   }
 }
 
 class Scales
 {
+  private $count = 0;
+  private function countUp()
+  {
+    $this->count++;
+  }
+  public function getCount()
+  {
+    return $this->count;
+  }
   public function scale($coinsA, $coinsB)
   {
+    $this->countUp();
     $totalWeightA = Coin::getTotalWeightOfCoins($coinsA);
     $totalWeightB = Coin::getTotalWeightOfCoins($coinsB);
     return ($totalWeightA <=> $totalWeightB);
