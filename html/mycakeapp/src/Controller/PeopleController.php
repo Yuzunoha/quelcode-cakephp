@@ -10,7 +10,14 @@ class PeopleController extends AppController
   {
     if ($this->request->is('post')) {
       $find = $this->request->data['People']['find'];
-      $condition = ['conditions' => ['age <= ' => $find]];
+      $condition = [
+        'conditions' => [
+          'and' => [
+            'age >= ' => 30,
+            'age <= ' => 49,
+          ]
+        ],
+      ];
       $data = $this->People->find('all', $condition);
     } else {
       $data = $this->People->find('all');
