@@ -10,11 +10,15 @@ class PeopleController extends AppController
   {
     if ($this->request->is('post')) {
       $find = $this->request->data['People']['find'];
+      $a = explode(' ', $find);
+      $min = $a[0] ?? 0;
+      $max = $a[1] ?? 200;
+      dd([$min, $max]);
       $condition = [
         'conditions' => [
           'and' => [
-            'age >= ' => 30,
-            'age <= ' => 49,
+            'age >= ' => $min,
+            'age <= ' => $max,
           ]
         ],
       ];
