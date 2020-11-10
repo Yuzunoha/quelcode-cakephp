@@ -96,10 +96,14 @@ class AuctionController extends AuctionBaseController
 			$biditem = $this->Biditems->patchEntity($biditem, $requestData);
 			// $biditemを保存する
 			if ($this->Biditems->save($biditem)) {
-				// 成功時のメッセージ
-				$this->Flash->success(__('保存しました。'));
-				// トップページ（index）に移動
-				return $this->redirect(['action' => 'index']);
+				$ext = pathinfo($biditem->image_name, PATHINFO_EXTENSION);
+				$biditem->image_name = $biditem->id . '.' . $ext; // '1.JPG とかにする'
+				if ($this->Biditems->save($biditem)) {
+					// 成功時のメッセージ
+					$this->Flash->success(__('保存しました。'));
+					// トップページ（index）に移動
+					return $this->redirect(['action' => 'index']);
+				}
 			}
 			// 失敗時のメッセージ
 			$this->Flash->error(__('保存に失敗しました。もう一度入力下さい。'));
