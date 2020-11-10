@@ -7,7 +7,7 @@
 	echo '<p><strong>USER: ' . $authuser['username'] . '</strong></p>';
 	echo $this->Form->control('name');
 	echo $this->Form->control('description', ['type' => 'textarea']);
-	echo $this->Form->file('image'); // image_name(255)に加工する
+	echo $this->Form->control('image', ['type' => 'file']); // image_name(255)に加工する
 	echo $this->Form->hidden('finished', ['value' => 0]);
 	echo $this->Form->control('endtime');
 	?>

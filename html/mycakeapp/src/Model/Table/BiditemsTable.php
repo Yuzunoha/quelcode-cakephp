@@ -109,6 +109,21 @@ class BiditemsTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
+        // 画像の拡張子チェック
+        $rules->add(function ($entity, $options) {
+            $ext = pathinfo($entity->image_name, PATHINFO_EXTENSION);
+            $extLower = strtolower($ext);
+            $validExts = ['jpg', 'jpeg', 'png', 'gif'];
+            if (in_array($extLower, $validExts, 'true')) {
+                return true; // OKのときのみtrueを返却する
+            }
+            $errMsg = sprintf($options['message'], $ext);
+            return $errMsg;
+        }, null, [
+            'errorField' => 'image',
+            'message' => '「%s」は無効な拡張子です'
+        ]);
+
         return $rules;
     }
 }

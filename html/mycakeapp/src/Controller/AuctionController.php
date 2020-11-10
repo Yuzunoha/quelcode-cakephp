@@ -91,7 +91,9 @@ class AuctionController extends AuctionBaseController
 		// POST送信時の処理
 		if ($this->request->is('post')) {
 			// $biditemにフォームの送信内容を反映
-			$biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
+			$requestData = $this->request->getData();
+			$requestData['image_name'] = $requestData['image']['name'];
+			$biditem = $this->Biditems->patchEntity($biditem, $requestData);
 			// $biditemを保存する
 			if ($this->Biditems->save($biditem)) {
 				// 成功時のメッセージ
