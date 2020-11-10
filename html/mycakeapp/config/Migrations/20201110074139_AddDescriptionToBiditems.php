@@ -1,4 +1,5 @@
 <?php
+
 use Migrations\AbstractMigration;
 
 class AddDescriptionToBiditems extends AbstractMigration
@@ -13,7 +14,7 @@ class AddDescriptionToBiditems extends AbstractMigration
     public function change()
     {
         $table = $this->table('biditems');
-        $table->addColumn('description', 'varchar', [
+        $table->addColumn('description', 'string', [
             'default' => null,
             'limit' => 1000,
             'null' => false,
