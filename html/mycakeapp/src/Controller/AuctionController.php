@@ -99,6 +99,10 @@ class AuctionController extends AuctionBaseController
 				$ext = pathinfo($biditem->image_name, PATHINFO_EXTENSION);
 				$biditem->image_name = $biditem->id . '.' . $ext; // '1.JPG とかにする'
 				if ($this->Biditems->save($biditem)) {
+					// 画像を格納する
+					$filename = $requestData['image']['tmp_name']; // "/tmp/phpPrAGaM"
+					$destination = 'img/auction/' . $biditem->image_name; // "img/auction/20.JPG"
+					move_uploaded_file($filename, $destination);
 					// 成功時のメッセージ
 					$this->Flash->success(__('保存しました。'));
 					// トップページ（index）に移動
