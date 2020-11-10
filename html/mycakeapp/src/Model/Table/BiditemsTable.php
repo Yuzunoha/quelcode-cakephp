@@ -83,6 +83,18 @@ class BiditemsTable extends Table
             ->requirePresence('endtime', 'create')
             ->notEmptyDateTime('endtime');
 
+        $validator
+            ->scalar('description')
+            ->maxLength('description', 1000)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
+
+        $validator
+            ->scalar('image_name')
+            ->maxLength('image_name', 255)
+            ->requirePresence('image_name', 'create')
+            ->notEmptyFile('image_name');
+
         return $validator;
     }
 
