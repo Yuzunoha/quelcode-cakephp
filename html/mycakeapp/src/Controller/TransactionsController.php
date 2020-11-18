@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Exception;
+
 class TransactionsController extends AuctionBaseController
 {
     // デフォルトテーブルを使わない
@@ -20,14 +22,48 @@ class TransactionsController extends AuctionBaseController
         $this->viewBuilder()->setLayout('auction');
     }
 
-    public function index()
+    public function index($bidinfo_id = null)
     {
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+        } catch (Exception $e) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        $seller_id = $bidinfo->biditem->user_id;
+        $bidder_id = $bidinfo->user_id;
+        $login_id = $this->Auth->user()['id'];
+
+        if ($login_id === $seller_id) {
+            return $this->redirect(['action' => 'send', $bidinfo_id]);
+        }
+        if ($login_id === $bidder_id) {
+            if ($bidinfo->bidder_name) {
+                return $this->redirect(['action' => 'receive', $bidinfo_id]);
+            }
+            return $this->redirect(['action' => 'address', $bidinfo_id]);
+        }
         return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
     }
 
     public function address($bidinfo_id = null)
     {
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+        } catch (Exception $e) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
         $bidinfo = $this->Bidinfo->newEntity();
         $this->set(compact('bidinfo'));
+    }
+
+    public function send($bidinfo_id = null)
+    {
+        return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+    }
+
+    public function receive($bidinfo_id = null)
+    {
+        return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
     }
 }
