@@ -10,7 +10,7 @@
 	</tr>
 	<tr>
 		<th scope="row">商品詳細</th>
-		<td><?= h($biditem->description) ?></td>
+		<td><?= nl2br(h($biditem->description)) ?></td>
 	</tr>
 	<tr>
 		<th scope="row">商品画像</th>
