@@ -6,7 +6,8 @@
 			<th scope="col"><?= $this->Paginator->sort('id') ?></th>
 			<th class="main" scope="col"><?= $this->Paginator->sort('name') ?></th>
 			<th scope="col"><?= $this->Paginator->sort('created') ?></th>
-			<th scope="col" class="actions"><?= __('Actions') ?></th>
+			<th scope="col"><?= __('Messages') ?></th>
+			<th scope="col"><?= __('Transactions') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,11 +16,13 @@
 				<td><?= h($biditem->id) ?></td>
 				<td><?= h($biditem->name) ?></td>
 				<td><?= h($biditem->created) ?></td>
-				<td class="actions">
-					<?php if (!empty($biditem->bidinfo)) : ?>
-						<?= $this->Html->link(__('View'), ['action' => 'msg', $biditem->bidinfo->id]) ?>
-					<?php endif; ?>
-				</td>
+				<?php if (!empty($biditem->bidinfo)) : ?>
+					<td><?= $this->Html->link(__('Message'), ['action' => 'msg', $biditem->bidinfo->id]) ?></td>
+					<td><?= $this->Html->link(__('Transaction'), ['controller' => 'Transactions', 'action' => 'index', $biditem->bidinfo->id]) ?></td>
+				<?php else : ?>
+					<td></td>
+					<td></td>
+				<?php endif; ?>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
