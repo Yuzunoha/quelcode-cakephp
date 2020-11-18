@@ -79,8 +79,28 @@ class TransactionsController extends AuctionBaseController
 
     public function send($bidinfo_id = null)
     {
-        dd('send');
-        return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+        } catch (Exception $e) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        $seller_id = $bidinfo->biditem->user_id;
+        $login_id = $this->Auth->user()['id'];
+
+        if ($login_id !== $seller_id) {
+            /* ログインユーザが出品者でない */
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        /* ログインユーザが出品者である */
+        if (false === $bidinfo->is_sent || $this->request->isPut()) {
+            /* putリクエストかつ発送済みボタンが押されていない */
+            $bidinfo = $this->Bidinfo->patchEntity($bidinfo, ['is_sent' => true]);
+            $this->Bidinfo->save($bidinfo);
+        }
+
+        $this->set(compact('bidinfo'));
     }
 
     public function receive($bidinfo_id = null)
