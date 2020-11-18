@@ -17,7 +17,7 @@ class AddAddressAndMoreToBidinfo extends AbstractMigration
             'limit' => 255,
             'null' => true,
         ]);
-        $table->addColumn('bidder_tell', 'string', [
+        $table->addColumn('bidder_tel', 'string', [
             'default' => null,
             'limit' => 11,
             'null' => true,
