@@ -62,7 +62,7 @@ class TransactionsController extends AuctionBaseController
             return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
         }
 
-        if ($bidinfo->bidder_name) {
+        if ($bidinfo->bidder_address) {
             /* 住所が既に登録されている */
             return $this->redirect(['action' => 'receive', $bidinfo_id]);
         }
@@ -109,7 +109,32 @@ class TransactionsController extends AuctionBaseController
 
     public function receive($bidinfo_id = null)
     {
-        dd('receive');
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+        } catch (Exception $e) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        $bidder_id = $bidinfo->user_id;
+        $login_id = $this->Auth->user()['id'];
+
+        if ($login_id !== $bidder_id) {
+            /* ログインユーザが落札者でない */
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        /* ログインユーザが落札者である */
+
+        if (
+            $this->request->isPut() &&
+            true === $bidinfo->is_sent && // 発送済みボタンが押されている
+            false === $bidinfo->is_received // 受取り済みボタンが押されていない
+        ) {
+            /* putリクエストかつ発送済みボタンが押されているかつ受取り済みボタンが押されていない */
+            $bidinfo = $this->Bidinfo->patchEntity($bidinfo, ['is_received' => true]);
+            $this->Bidinfo->save($bidinfo);
+        }
+
         return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
     }
 }
