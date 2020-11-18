@@ -94,8 +94,12 @@ class TransactionsController extends AuctionBaseController
         }
 
         /* ログインユーザが出品者である */
-        if (false === $bidinfo->is_sent || $this->request->isPut()) {
-            /* putリクエストかつ発送済みボタンが押されていない */
+        if (
+            $this->request->isPut() &&
+            isset($bidinfo->bidder_address) && // 住所が登録されている
+            false === $bidinfo->is_sent // 発送済みボタンが押されていない 
+        ) {
+            /* putリクエストかつ住所が登録されているかつ発送済みボタンが押されていない */
             $bidinfo = $this->Bidinfo->patchEntity($bidinfo, ['is_sent' => true]);
             $this->Bidinfo->save($bidinfo);
         }
