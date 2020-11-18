@@ -1,4 +1,5 @@
 <?php
+
 use Migrations\AbstractMigration;
 
 class AddUpdatedToBidinfo extends AbstractMigration
@@ -13,7 +14,7 @@ class AddUpdatedToBidinfo extends AbstractMigration
     public function change()
     {
         $table = $this->table('bidinfo');
-        $table->addColumn('updated', 'datetime', [
+        $table->addColumn('modified', 'datetime', [
             'default' => null,
             'null' => false,
         ]);
