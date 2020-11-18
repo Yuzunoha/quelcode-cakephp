@@ -1,21 +1,25 @@
 <?php
+
 use Migrations\AbstractMigration;
 
 class AddAddressAndMoreToBidinfo extends AbstractMigration
 {
-    /**
-     * Change Method.
-     *
-     * More information on this method is available here:
-     * https://book.cakephp.org/phinx/0/en/migrations.html#the-change-method
-     * @return void
-     */
     public function change()
     {
         $table = $this->table('bidinfo');
-        $table->addColumn('address', 'string', [
+        $table->addColumn('bidder_name', 'string', [
             'default' => null,
             'limit' => 255,
+            'null' => true,
+        ]);
+        $table->addColumn('bidder_address', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => true,
+        ]);
+        $table->addColumn('bidder_tell', 'string', [
+            'default' => null,
+            'limit' => 11,
             'null' => true,
         ]);
         $table->update();
