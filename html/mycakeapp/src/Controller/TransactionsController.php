@@ -53,7 +53,19 @@ class TransactionsController extends AuctionBaseController
         } catch (Exception $e) {
             return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
         }
-        $bidinfo = $this->Bidinfo->newEntity();
+
+        $bidder_id = $bidinfo->user_id;
+        $login_id = $this->Auth->user()['id'];
+
+        if ($login_id !== $bidder_id) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        if ($this->request->isPut()) {
+            $requestData = $this->request->getData();
+            dd($requestData);
+        }
+
         $this->set(compact('bidinfo'));
     }
 

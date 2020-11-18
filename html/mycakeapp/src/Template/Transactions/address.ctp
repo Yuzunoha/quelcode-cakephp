@@ -4,7 +4,7 @@
 	<?php
 	echo $this->Form->control('bidder_name');
 	echo $this->Form->control('bidder_address');
-	echo $this->Form->control('bidder_name');
+	echo $this->Form->control('bidder_tel');
 	?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
