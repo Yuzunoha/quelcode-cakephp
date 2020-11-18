@@ -58,12 +58,20 @@ class TransactionsController extends AuctionBaseController
         $login_id = $this->Auth->user()['id'];
 
         if ($login_id !== $bidder_id) {
+            /* ログインユーザが落札者でない */
             return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
         }
 
+        if ($bidinfo->bidder_name) {
+            /* 住所が既に登録されている */
+            return $this->redirect(['action' => 'receive', $bidinfo_id]);
+        }
+
         if ($this->request->isPut()) {
-            $requestData = $this->request->getData();
-            dd($requestData);
+            $bidinfo = $this->Bidinfo->patchEntity($bidinfo, $this->request->getData());
+            if ($this->Bidinfo->save($bidinfo)) {
+                return $this->redirect(['action' => 'receive', $bidinfo_id]);
+            }
         }
 
         $this->set(compact('bidinfo'));
@@ -71,11 +79,13 @@ class TransactionsController extends AuctionBaseController
 
     public function send($bidinfo_id = null)
     {
+        dd('send');
         return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
     }
 
     public function receive($bidinfo_id = null)
     {
+        dd('receive');
         return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
     }
 }
