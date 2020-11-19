@@ -20,7 +20,7 @@
 				<?php if (!empty($biditem->bidinfo)) : ?>
 					<td><?= $this->Html->link(__('Message'), ['action' => 'msg', $biditem->bidinfo->id]) ?></td>
 					<td><?= $this->Html->link(__('Transaction'), ['controller' => 'Transactions', 'action' => 'index', $biditem->bidinfo->id]) ?></td>
-					<td><?= $this->Html->link(__('Review'), ['controller' => 'Reviews', 'action' => 'add', $biditem->bidinfo->id]) ?></td>
+					<td><?= $biditem->bidinfo->is_received ? $this->Html->link(__('Review'), ['controller' => 'Reviews', 'action' => 'add', $biditem->bidinfo->id]) : '' ?></td>
 				<?php else : ?>
 					<td></td>
 					<td></td>

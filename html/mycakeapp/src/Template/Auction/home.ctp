@@ -19,7 +19,7 @@
 				<td><?= h($info->created) ?></td>
 				<td><?= $this->Html->link(__('Message'), ['action' => 'msg', $info->id]) ?></td>
 				<td><?= $this->Html->link(__('Transaction'), ['controller' => 'Transactions', 'action' => 'index', $info->id]) ?></td>
-				<td><?= $this->Html->link(__('Review'), ['controller' => 'Reviews', 'action' => 'add', $info->id]) ?></td>
+				<td><?= $info->is_received ? $this->Html->link(__('Review'), ['controller' => 'Reviews', 'action' => 'add', $info->id]) : '' ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
