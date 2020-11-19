@@ -8,6 +8,7 @@
 			<th scope="col"><?= $this->Paginator->sort('created') ?></th>
 			<th scope="col"><?= __('Messages') ?></th>
 			<th scope="col"><?= __('Transactions') ?></th>
+			<th scope="col"><?= __('Reviews') ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,7 +20,9 @@
 				<?php if (!empty($biditem->bidinfo)) : ?>
 					<td><?= $this->Html->link(__('Message'), ['action' => 'msg', $biditem->bidinfo->id]) ?></td>
 					<td><?= $this->Html->link(__('Transaction'), ['controller' => 'Transactions', 'action' => 'index', $biditem->bidinfo->id]) ?></td>
+					<td><?= $this->Html->link(__('Review'), ['controller' => 'Reviews', 'action' => 'add', $biditem->bidinfo->id]) ?></td>
 				<?php else : ?>
+					<td></td>
 					<td></td>
 					<td></td>
 				<?php endif; ?>
