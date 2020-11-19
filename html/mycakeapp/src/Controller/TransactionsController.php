@@ -135,6 +135,6 @@ class TransactionsController extends AuctionBaseController
             $this->Bidinfo->save($bidinfo);
         }
 
-        return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        $this->set(compact('bidinfo'));
     }
 }
