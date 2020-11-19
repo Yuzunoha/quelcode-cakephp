@@ -2,7 +2,9 @@
 
 <?= $this->element('Auction/addresses'); ?>
 
-<?php if (false === $bidinfo->is_sent) : ?>
+<?php if (null === $bidinfo->address) : ?>
+	発送先情報の登録をお待ちください
+<?php elseif (false === $bidinfo->is_sent) : ?>
 	<?= $this->Form->create($bidinfo) ?>
 	<?= $this->Form->button(__('発送済み')) ?>
 	<?= $this->Form->end() ?>
