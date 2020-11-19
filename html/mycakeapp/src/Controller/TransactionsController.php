@@ -94,6 +94,7 @@ class TransactionsController extends AuctionBaseController
         }
 
         /* ログインユーザが出品者である */
+
         if (
             $this->request->isPut() &&
             isset($bidinfo->bidder_address) && // 住所が登録されている
