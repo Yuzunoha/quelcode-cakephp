@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Exception;
+
 class ReviewsController extends AuctionBaseController
 {
     // 初期化処理
@@ -29,5 +31,21 @@ class ReviewsController extends AuctionBaseController
 
     public function add($bidinfo_id = null)
     {
+        try {
+            $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Biditems']]);
+        } catch (Exception $e) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        $seller_id = $bidinfo->biditem->user_id;
+        $bidder_id = $bidinfo->user_id;
+        $login_id = $this->Auth->user()['id'];
+
+        if ($login_id !== $seller_id && $login_id !== $bidder_id) {
+            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
+        }
+
+        $review = $this->Reviews->newEntity();
+        $this->set(compact('review'));
     }
 }
