@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -50,6 +51,12 @@ class UsersTable extends Table
         ]);
         $this->hasMany('Bidrequests', [
             'foreignKey' => 'user_id',
+        ]);
+        $this->hasMany('Reviews', [
+            'foreignKey' => 'reviewer_user_id',
+        ]);
+        $this->hasMany('Reviews', [
+            'foreignKey' => 'reviewee_user_id',
         ]);
     }
 

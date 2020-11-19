@@ -22,6 +22,13 @@ class ReviewsTable extends Table
             'foreignKey' => 'bidinfo_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'reviewer_user_id',
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'reviewee_user_id',
+        ]);
     }
 
     public function validationDefault(Validator $validator)
