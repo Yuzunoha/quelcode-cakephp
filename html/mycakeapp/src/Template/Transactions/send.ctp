@@ -1,4 +1,26 @@
+<style type="text/css">
+	th {
+		background: #f3fcff;
+		width: 120px
+	}
+</style>
 <h2>発送済みを登録する</h2>
+<table>
+	<tbody>
+		<tr>
+			<th>発送先名</th>
+			<td><?= h($bidinfo->bidder_name) ?></td>
+		</tr>
+		<tr>
+			<th>発送先住所</th>
+			<td><?= h($bidinfo->bidder_address) ?></td>
+		</tr>
+		<tr>
+			<th>発送先電話番号</th>
+			<td><?= h($bidinfo->bidder_tel) ?></td>
+		</tr>
+	</tbody>
+</table>
 <?php if (false === $bidinfo->is_sent) : ?>
 	<?= $this->Form->create($bidinfo) ?>
 	<?= $this->Form->button(__('発送済み')) ?>
