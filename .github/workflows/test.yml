@@ -32,3 +32,5 @@ jobs:
           echo Add other actions to build,
           echo 日本語のコメントのテストです！！
           echo test, and deploy your project.
+          pwd
+          ls
