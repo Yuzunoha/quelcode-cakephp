@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ReviewsService;
 use Exception;
 
 class ReviewsController extends AuctionBaseController
@@ -31,50 +32,26 @@ class ReviewsController extends AuctionBaseController
 
     public function add($bidinfo_id = null)
     {
+        $login_user_id = $this->Auth->user('id');
         try {
             $bidinfo = $this->Bidinfo->get($bidinfo_id, ['contain' => ['Users', 'Biditems' => 'Users']]);
+            list($target_user_id, $target_user_name) = ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
         } catch (Exception $e) {
+            /* ログインユーザIDとbidinfoの組み合わせが不整合である */
             return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
         }
-        $login_id = $this->Auth->user()['id'];
-        $seller_id = $bidinfo->biditem->user_id;
-        $bidder_id = $bidinfo->user_id;
-        if ($login_id === $bidder_id) {
-            /* ログインユーザが落札者である */
-            $target_user_id = $seller_id;
-            $target_user_name = $bidinfo->biditem->user->username; // 出品者のユーザ名
-        } elseif ($login_id === $seller_id) {
-            /* ログインユーザが出品者である */
-            $target_user_id = $bidder_id;
-            $target_user_name = $bidinfo->user->username; // 落札者のユーザ名
-        } else {
-            /* ログインユーザが出品者でも落札者でもない */
-            return $this->redirect(['controller' => 'Auction', 'action' => 'index']);
-        }
-        $review = $this->Reviews->find('all', ['conditions' => [
-            'reviewer_user_id' => $login_id,
-            'bidinfo_id' => $bidinfo_id
-        ]])->first();
-        if ($review) {
-            /* ログインユーザがレビューしている */
-            $isReviewed = true;
-        } else {
-            /* ログインユーザがレビューしていない */
-            $isReviewed = false;
-            $review = $this->Reviews->newEntity();
-        }
+        list($review, $isReviewed) = ReviewsService::getReviewAndFlag($login_user_id, $bidinfo_id, $this->Reviews);
         if (
             $this->request->isPost() &&
             true === $bidinfo->is_received && // 受け取り済みである
             false === $isReviewed // ログインユーザがレビューしていない
         ) {
             $review->bidinfo_id = $bidinfo_id;
-            $review->reviewer_user_id = $login_id;
+            $review->reviewer_user_id = $login_user_id;
             $review->reviewee_user_id = $target_user_id;
             $review = $this->Reviews->patchEntity($review, $this->request->getData());
             if ($this->Reviews->save($review)) {
                 $isReviewed = true;
-            } else {
             }
         }
         $item_name = $bidinfo->biditem->name;
