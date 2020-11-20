@@ -32,5 +32,18 @@ jobs:
           echo Add other actions to build,
           echo 日本語のコメントのテストです！！
           echo test, and deploy your project.
+          pwd # /home/runner/work/quelcode-cakephp/quelcode-cakephp
+          ls # README.md docker docker-compose.yml html
+
+      - name: docker-compose up -d
+        run: docker-compose up -d
+
+      - name: docker-compose exec php bash
+        run: docker-compose exec php bash
+
+      - name: pwd and ls; after exec php bash
+        run: |
+          echo pwd
           pwd
+          echo ls
           ls
