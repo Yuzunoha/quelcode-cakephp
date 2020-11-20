@@ -11,6 +11,7 @@ use App\Model\Table\BidinfoTable;
 use App\Model\Table\ReviewsTable;
 use App\Model\Table\UsersTable;
 use App\Service\ReviewsService;
+use Exception;
 
 class ReviewsServiceTest extends TestCase
 {
@@ -70,6 +71,27 @@ class ReviewsServiceTest extends TestCase
     $login_user_id = 1;
     $bidinfo = $this->fixtureBidinfo1();
     list($target_user_id, $target_user_name) = ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
-    $this->assertEquals(1, 1);
+    $this->assertEquals($target_user_id, 2);
+    $this->assertEquals($target_user_name, '2さん');
+  }
+
+  public function testGetTargetDataFromBidinfo2()
+  {
+    $login_user_id = 2;
+    $bidinfo = $this->fixtureBidinfo1();
+    list($target_user_id, $target_user_name) = ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
+    $this->assertEquals($target_user_id, 1);
+    $this->assertEquals($target_user_name, '1さん');
+  }
+
+  public function testGetTargetDataFromBidinfo3()
+  {
+    $login_user_id = 3;
+    $bidinfo = $this->fixtureBidinfo1();
+    try {
+      ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
+    } catch (Exception $e) {
+      $this->assertEquals($e instanceof Exception, true);
+    }
   }
 }
