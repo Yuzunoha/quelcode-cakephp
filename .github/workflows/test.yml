@@ -39,4 +39,4 @@ jobs:
         run: docker-compose up -d
 
       - name: phpコンテナの中身を表示してみる
-        run: docker-compose exec php bash -c 'pwd; ls; cd mycakeapp; pwd; ls;'
+        run: docker-compose exec -T php bash -c 'pwd; ls; cd mycakeapp; pwd; ls;'
