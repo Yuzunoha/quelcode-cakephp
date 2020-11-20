@@ -91,6 +91,10 @@ Router::scope('/', function (RouteBuilder $routes) {
      * routes you want in your application.
      */
     $routes->fallbacks(DashedRoute::class);
+
+    // https://qiita.com/machio77777/items/46dfb91b444d20667528
+    $routes->get('/test1', ['controller' => 'Test', 'action' => 'indexget']);
+    $routes->post('/test2', ['controller' => 'Test', 'action' => 'indexpost']);
 });
 
 /**
