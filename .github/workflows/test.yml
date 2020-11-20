@@ -38,12 +38,5 @@ jobs:
       - name: docker-compose up -d
         run: docker-compose up -d
 
-      - name: docker-compose exec php bash
-        run: docker-compose exec php bash
-
-      - name: pwd and ls; after exec php bash
-        run: |
-          echo pwd
-          pwd
-          echo ls
-          ls
+      - name: phpコンテナの中身を表示してみる
+        run: docker-compose exec php bash -c 'pwd; ls; cd mycakeapp; pwd; ls;'
