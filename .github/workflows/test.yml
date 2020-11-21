@@ -54,3 +54,9 @@ jobs:
 
       - name: composer install
         run: docker-compose exec -T php bash -c 'cd mycakeapp; yes | composer install'
+
+      - name: マイグレーション
+        run: docker-compose exec -T php bash -c 'mycakeapp/bin/cake migrations migrate'
+
+      - name: ユニットテスト(サービス)
+        run: docker-compose exec -T php bash -c 'cd mycakeapp; vendor/bin/phpunit tests/TestCase/Service/*'
