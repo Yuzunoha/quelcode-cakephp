@@ -34,10 +34,17 @@ jobs:
           echo test, and deploy your project.
           pwd # /home/runner/work/quelcode-cakephp/quelcode-cakephp
           ls # README.md docker docker-compose.yml html
-          id -u # 1000
+
+      - name: .envを作成する
+        run: |
+          echo DOCKER_UID=`id -u` > .env
+          cat .env # DOCKER_UID=1001
 
       - name: docker-compose up -d
         run: docker-compose up -d
+
+      - name: phpコンテナのuidを表示してみる
+        run: docker-compose exec -T php bash -c 'id -u'
 
       - name: phpコンテナの中身を表示してみる
         run: docker-compose exec -T php bash -c 'pwd; ls; cd mycakeapp; pwd; ls;'
