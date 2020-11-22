@@ -308,7 +308,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'docker_db_user',
             'password' => 'docker_db_user_pass',
-            'database' => 'docker_db',
+            'database' => 'docker_db_for_test',
             //'encoding' => 'utf8mb4',
             'timezone' => 'Asia/Tokyo',
             'cacheMetadata' => true,
