@@ -3,5 +3,6 @@ phpmyadmin
 .env
 .vscode
 html/mycakeapp/config/Migrations/schema-dump-default.lock
+html/mycakeapp/config/Migrations/schema-dump-test.lock
 html/mycakeapp/webroot/img/auction/*
 !html/mycakeapp/webroot/img/auction/.gitkeep
