@@ -17,10 +17,11 @@ class ReviewsServiceTest extends TestCase
 {
   use IntegrationTestTrait;
 
-  public $fixtures = ['app.Articles'];
+  public $fixtures = ['app.Reviews'];
 
   public function setUp()
   {
+    $this->loadFixtures('Reviews');
     parent::setUp();
     $this->Users = TableRegistry::getTableLocator()->get('Users', ['className' => UsersTable::class]);
     $this->Biditems = TableRegistry::getTableLocator()->get('Biditems', ['className' => BiditemsTable::class]);
@@ -99,7 +100,7 @@ class ReviewsServiceTest extends TestCase
 
   public function testFixture1()
   {
-    $this->loadFixtures('Articles');
+    pr($this->Reviews->find('all')->toArray());
     $this->assertEquals(1, 1);
   }
 }
