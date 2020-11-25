@@ -31,18 +31,17 @@ class ReviewsServiceTest extends TestCase
 
   public function fixtureBidinfo1()
   {
-    $user1 = $this->Users->get(1);
-    $user2 = $this->Users->get(2);
-    $biditem = $this->Biditems->get(1);
-    $biditem->user = $user1;
+    $seller = $this->Users->get(1);
+    $bidder = $this->Users->get(2);
+    $biditem = $this->Biditems->get($seller->id);
+    $biditem->user = $seller;
 
     $bidinfo = $this->Bidinfo->newEntity();
-    $bidinfo->biditem_id = 1;
-    $bidinfo->user_id = 2;
-    $bidinfo->user = $user2;
+    $bidinfo->biditem_id = $biditem->id;
+    $bidinfo->user_id = $bidder->id;
+    $bidinfo->user = $bidder;
     $bidinfo->price = 1234;
     $bidinfo->biditem = $biditem;
-
     return $bidinfo;
   }
 
