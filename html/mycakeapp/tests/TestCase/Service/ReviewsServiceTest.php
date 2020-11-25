@@ -33,9 +33,11 @@ class ReviewsServiceTest extends TestCase
   {
     $seller = $this->Users->get(1);
     $bidder = $this->Users->get(2);
-    $biditem = $this->Biditems->get($seller->id);
-    $biditem->user = $seller;
-
+    $biditem = $this->Biditems->find('all', [
+      'conditions' => ['user_id' => $seller->id],
+      'contain' => ['Users'],
+      'order' => ['created' => 'desc']
+    ])->first();
     $bidinfo = $this->Bidinfo->newEntity();
     $bidinfo->biditem_id = $biditem->id;
     $bidinfo->user_id = $bidder->id;
