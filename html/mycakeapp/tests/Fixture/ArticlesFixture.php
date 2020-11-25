@@ -22,6 +22,7 @@ class ArticlesFixture extends TestFixture
   ];
   public $records = [
     [
+      'id' => 1,
       'title' => 'First Article',
       'body' => 'First Article Body',
       'published' => '1',
@@ -29,6 +30,7 @@ class ArticlesFixture extends TestFixture
       'modified' => '2007-03-18 10:41:31'
     ],
     [
+      'id' => 2,
       'title' => 'Second Article',
       'body' => 'Second Article Body',
       'published' => '1',
@@ -36,6 +38,7 @@ class ArticlesFixture extends TestFixture
       'modified' => '2007-03-18 10:43:31'
     ],
     [
+      'id' => 3,
       'title' => 'Third Article',
       'body' => 'Third Article Body',
       'published' => '1',

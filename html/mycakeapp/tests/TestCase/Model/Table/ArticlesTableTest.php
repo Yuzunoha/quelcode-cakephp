@@ -28,11 +28,13 @@ class ArticlesTableTest extends TestCase
 
   public function testFindIdTitleArray()
   {
-    $expected = [
-      ['id' => 1, 'title' => 'First Article'],
-      ['id' => 2, 'title' => 'Second Article'],
-      ['id' => 3, 'title' => 'Third Article']
-    ];
+    $records = (new ArticlesFixture)->records;
+    foreach ($records as $record) {
+      $expected[] = [
+        'id' => $record['id'],
+        'title' => $record['title'],
+      ];
+    }
     $actual = $this->Articles->find('IdTitleArray');
     $this->assertEquals($expected, $actual);
   }
