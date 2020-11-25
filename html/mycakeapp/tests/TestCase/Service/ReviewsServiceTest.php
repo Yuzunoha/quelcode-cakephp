@@ -17,11 +17,11 @@ class ReviewsServiceTest extends TestCase
 {
   use IntegrationTestTrait;
 
-  public $fixtures = ['app.Users', 'app.Biditems', 'app.Reviews'];
+  public $fixtures = ['app.Users', 'app.Biditems', 'app.Bidinfo', 'app.Reviews'];
 
   public function setUp()
   {
-    $this->loadFixtures('Users', 'Biditems', 'Reviews');
+    $this->loadFixtures('Users', 'Biditems', 'Bidinfo', 'Reviews');
     parent::setUp();
     $this->Users = TableRegistry::getTableLocator()->get('Users', ['className' => UsersTable::class]);
     $this->Biditems = TableRegistry::getTableLocator()->get('Biditems', ['className' => BiditemsTable::class]);
@@ -31,19 +31,16 @@ class ReviewsServiceTest extends TestCase
 
   public function fixtureBidinfo1()
   {
-    $seller = $this->Users->get(1);
-    $bidder = $this->Users->get(2);
-    $biditem = $this->Biditems->find('all', [
-      'conditions' => ['user_id' => $seller->id],
-      'contain' => ['Users'],
-      'order' => ['created' => 'desc']
+    /*
+    $bidinfo_id = 1;
+    $bidinfo = $this->Bidinfo->get($bidinfo_id, [
+      'contain' => ['Users', 'Biditems' => 'Users']
+    ]);
+    */
+    $bidinfo = $this->Bidinfo->find('all', [
+      'conditions' => ['biditem_id' => 1],
+      'contain' => ['Users', 'Biditems' => 'Users'],
     ])->first();
-    $bidinfo = $this->Bidinfo->newEntity();
-    $bidinfo->biditem_id = $biditem->id;
-    $bidinfo->user_id = $bidder->id;
-    $bidinfo->user = $bidder;
-    $bidinfo->price = 1234;
-    $bidinfo->biditem = $biditem;
     return $bidinfo;
   }
 
