@@ -15,6 +15,7 @@ class BiditemsFixture extends TestFixture
     {
         $this->records = [
             [
+                "id" => '1',
                 "user_id" => "1",
                 "name" => "1さんの商品",
                 "description" => "1さんの商品でーす",
