@@ -31,18 +31,8 @@ class ReviewsServiceTest extends TestCase
 
   public function fixtureBidinfo1()
   {
-    $user1 = $this->Users->newEntity([
-      "username" => "1さん",
-      "password" => "pass1",
-      "role" => "user"
-    ]);
-    $user1->id = 1;
-    $user2 = $this->Users->newEntity([
-      "username" => "2さん",
-      "password" => "pass2",
-      "role" => "user"
-    ]);
-    $user2->id = 2;
+    $user1 = $this->Users->get(1);
+    $user2 = $this->Users->get(2);
     $biditem = $this->Biditems->newEntity([
       "user_id" => "1",
       "name" => "1さんの商品",
@@ -107,7 +97,7 @@ class ReviewsServiceTest extends TestCase
   public function testFixture2()
   {
     $user1 = $this->Users->get(1);
-    pr($user1);
+    // pr($user1);
     $this->assertEquals(1, 1);
   }
 }
