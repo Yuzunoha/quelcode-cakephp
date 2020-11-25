@@ -17,6 +17,8 @@ class ReviewsServiceTest extends TestCase
 {
   use IntegrationTestTrait;
 
+  public $fixtures = ['app.Articles'];
+
   public function setUp()
   {
     parent::setUp();
@@ -93,5 +95,11 @@ class ReviewsServiceTest extends TestCase
     } catch (Exception $e) {
       $this->assertEquals($e instanceof Exception, true);
     }
+  }
+
+  public function testFixture1()
+  {
+    $this->loadFixtures('Articles');
+    $this->assertEquals(1, 1);
   }
 }
