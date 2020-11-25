@@ -17,11 +17,11 @@ class ReviewsServiceTest extends TestCase
 {
   use IntegrationTestTrait;
 
-  public $fixtures = ['app.Users', 'app.Reviews'];
+  public $fixtures = ['app.Users', 'app.Biditems', 'app.Reviews'];
 
   public function setUp()
   {
-    $this->loadFixtures('Users', 'Reviews');
+    $this->loadFixtures('Users', 'Biditems', 'Reviews');
     parent::setUp();
     $this->Users = TableRegistry::getTableLocator()->get('Users', ['className' => UsersTable::class]);
     $this->Biditems = TableRegistry::getTableLocator()->get('Biditems', ['className' => BiditemsTable::class]);
@@ -33,20 +33,7 @@ class ReviewsServiceTest extends TestCase
   {
     $user1 = $this->Users->get(1);
     $user2 = $this->Users->get(2);
-    $biditem = $this->Biditems->newEntity([
-      "user_id" => "1",
-      "name" => "1さんの商品",
-      "description" => "1さんの商品でーす",
-      "finished" => "0",
-      "endtime" => [
-        "year" => "2020",
-        "month" => "11",
-        "day" => "20",
-        "hour" => "17",
-        "minute" => "02"
-      ],
-      "image_name" => "1.JPG"
-    ]);
+    $biditem = $this->Biditems->get(1);
     $biditem->user = $user1;
 
     $bidinfo = $this->Bidinfo->newEntity();
