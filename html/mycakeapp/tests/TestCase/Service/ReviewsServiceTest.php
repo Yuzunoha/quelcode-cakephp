@@ -82,4 +82,22 @@ class ReviewsServiceTest extends TestCase
     // pr($user1);
     $this->assertEquals(1, 1);
   }
+
+  public function testGetReviewAndFlag1_ログインユーザがレビューしている()
+  {
+    $login_user_id = 1;
+    $bidinfo_id = 1;
+    list($review, $isReviewed) = ReviewsService::getReviewAndFlag($login_user_id, $bidinfo_id, $this->Reviews);
+    $this->assertEquals($this->Reviews->get(1), $review);
+    $this->assertEquals(true, $isReviewed);
+  }
+
+  public function testGetReviewAndFlag2_ログインユーザがレビューしていない()
+  {
+    $login_user_id = -1;
+    $bidinfo_id = 1;
+    list($review, $isReviewed) = ReviewsService::getReviewAndFlag($login_user_id, $bidinfo_id, $this->Reviews);
+    $this->assertEquals($this->Reviews->newEntity(), $review);
+    $this->assertEquals(false, $isReviewed);
+  }
 }
