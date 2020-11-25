@@ -29,16 +29,10 @@ class ReviewsServiceTest extends TestCase
     $this->Reviews = TableRegistry::getTableLocator()->get('Reviews', ['className' => ReviewsTable::class]);
   }
 
-  public function fixtureBidinfo1()
+  public function getBidinfoByBiditemId($biditem_id)
   {
-    /*
-    $bidinfo_id = 1;
-    $bidinfo = $this->Bidinfo->get($bidinfo_id, [
-      'contain' => ['Users', 'Biditems' => 'Users']
-    ]);
-    */
     $bidinfo = $this->Bidinfo->find('all', [
-      'conditions' => ['biditem_id' => 1],
+      'conditions' => ['biditem_id' => $biditem_id],
       'contain' => ['Users', 'Biditems' => 'Users'],
     ])->first();
     return $bidinfo;
@@ -47,7 +41,8 @@ class ReviewsServiceTest extends TestCase
   public function testGetTargetDataFromBidinfo1()
   {
     $login_user_id = 1;
-    $bidinfo = $this->fixtureBidinfo1();
+    $biditem_id = 1;
+    $bidinfo = $this->getBidinfoByBiditemId($biditem_id);
     list($target_user_id, $target_user_name) = ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
     $this->assertEquals($target_user_id, 2);
     $this->assertEquals($target_user_name, '2さん');
@@ -56,7 +51,8 @@ class ReviewsServiceTest extends TestCase
   public function testGetTargetDataFromBidinfo2()
   {
     $login_user_id = 2;
-    $bidinfo = $this->fixtureBidinfo1();
+    $biditem_id = 1;
+    $bidinfo = $this->getBidinfoByBiditemId($biditem_id);
     list($target_user_id, $target_user_name) = ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
     $this->assertEquals($target_user_id, 1);
     $this->assertEquals($target_user_name, '1さん');
@@ -65,7 +61,8 @@ class ReviewsServiceTest extends TestCase
   public function testGetTargetDataFromBidinfo3()
   {
     $login_user_id = 3;
-    $bidinfo = $this->fixtureBidinfo1();
+    $biditem_id = 1;
+    $bidinfo = $this->getBidinfoByBiditemId($biditem_id);
     try {
       ReviewsService::getTargetDataFromBidinfo($login_user_id, $bidinfo);
     } catch (Exception $e) {
