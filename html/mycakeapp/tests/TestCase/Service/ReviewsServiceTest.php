@@ -100,7 +100,7 @@ class ReviewsServiceTest extends TestCase
 
   public function testFixture1()
   {
-    pr($this->Reviews->find('all')->toArray());
+    // pr($this->Reviews->find('all')->toArray());
     $this->assertEquals(1, 1);
   }
 }
