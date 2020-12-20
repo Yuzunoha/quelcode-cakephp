@@ -54,6 +54,13 @@ Router::scope('/', function (RouteBuilder $routes) {
     ]));
 
     /**
+     * CakePHP3フレームワークを使用し、REST APIを作成する
+     * https://qiita.com/norifumi92/items/a0760d55e998879ba5e4
+     */
+    $routes->resources('Topics');
+    $routes->setExtensions(['json', 'xml']);
+
+    /**
      * Apply a middleware to the current route scope.
      * Requires middleware to be registered via `Application::routes()` with `registerMiddleware()`
      */
