@@ -102,6 +102,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     // https://qiita.com/machio77777/items/46dfb91b444d20667528
     $routes->get('/test1', ['controller' => 'Test', 'action' => 'indexget']);
     $routes->post('/test2', ['controller' => 'Test', 'action' => 'indexpost']);
+
+    $routes->get('/sleepms10', ['controller' => 'Sleep', 'action' => 'sleepms10']);
+    $routes->get('/sleepms20', ['controller' => 'Sleep', 'action' => 'sleepms20']);
 });
 
 /**
