@@ -15,12 +15,32 @@ class TopicsController extends AppController
 
   public function index()
   {
-    // find('all') get all records from Topics model
-    // We uses set() to pass data to view
-    $topics = $this->Topics->find('all');
+    $data = $this->_measureMilliSec(function () {
+      return $this->Topics->find('all');
+    });
+    $topics = $data['result'];
+    $milliSec = $data['milliSec'];
+
     $this->set([
       'topics' => $topics,
-      '_serialize' => ['topics']
+      'milliSec' => $milliSec,
+      '_serialize' => ['topics', 'milliSec']
     ]);
+  }
+
+  private function _measureMilliSec(callable $callback): array
+  {
+    $timeStartMicroSec = microtime(true);
+    $result = $callback();
+    $timeEndMicroSec = microtime(true);
+
+    $timeLapseMicroSec = $timeEndMicroSec - $timeStartMicroSec;
+    $timeLapseMilliSec = $timeLapseMicroSec * 1000;
+    $timeLapseMilliSecRounded = round($timeLapseMilliSec, 4);
+
+    return [
+      'milliSec' => $timeLapseMilliSecRounded,
+      'result' => $result,
+    ];
   }
 }
