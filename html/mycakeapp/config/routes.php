@@ -105,6 +105,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->get('/sleepms10', ['controller' => 'Sleep', 'action' => 'sleepms10']);
     $routes->get('/sleepms20', ['controller' => 'Sleep', 'action' => 'sleepms20']);
+    $routes->get('/sleepms/:ms', ['controller' => 'Sleep', 'action' => 'sleepms']);
 });
 
 /**

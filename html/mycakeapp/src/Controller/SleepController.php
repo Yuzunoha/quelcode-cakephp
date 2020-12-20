@@ -27,6 +27,13 @@ class SleepController extends AppController
     return $this->response->withStringBody(json_encode(['message' => 'Ok', 'data' => $data]));
   }
 
+  public function sleepms()
+  {
+    $ms = $this->request->getParam('ms');
+    $data = $this->_measureMilliSecWrap($ms);
+    return $this->response->withStringBody(json_encode(['message' => 'Ok', 'data' => $data]));
+  }
+
   private function _measureMilliSecWrap(int $ms): array
   {
     $data = MeasureService::measureMilliSec(function () use ($ms) {
