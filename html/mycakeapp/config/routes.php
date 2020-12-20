@@ -54,6 +54,13 @@ Router::scope('/', function (RouteBuilder $routes) {
     ]));
 
     /**
+     * CakePHP3フレームワークを使用し、REST APIを作成する
+     * https://qiita.com/norifumi92/items/a0760d55e998879ba5e4
+     */
+    $routes->resources('Topics');
+    $routes->setExtensions(['json', 'xml']);
+
+    /**
      * Apply a middleware to the current route scope.
      * Requires middleware to be registered via `Application::routes()` with `registerMiddleware()`
      */
@@ -95,6 +102,10 @@ Router::scope('/', function (RouteBuilder $routes) {
     // https://qiita.com/machio77777/items/46dfb91b444d20667528
     $routes->get('/test1', ['controller' => 'Test', 'action' => 'indexget']);
     $routes->post('/test2', ['controller' => 'Test', 'action' => 'indexpost']);
+
+    $routes->get('/sleepms10', ['controller' => 'Sleep', 'action' => 'sleepms10']);
+    $routes->get('/sleepms20', ['controller' => 'Sleep', 'action' => 'sleepms20']);
+    $routes->get('/sleepms/:ms', ['controller' => 'Sleep', 'action' => 'sleepms']);
 });
 
 /**
