@@ -39,5 +39,3 @@ services:
       - ./phpmyadmin/sessions:/sessions
   memcached:
     image: memcached
-    ports:
-      - 11211:11211
