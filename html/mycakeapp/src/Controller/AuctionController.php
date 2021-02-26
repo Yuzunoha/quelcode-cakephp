@@ -94,6 +94,8 @@ class AuctionController extends AuctionBaseController
 			$requestData = $this->request->getData();
 			$requestData['image_name'] = $requestData['image']['name'];
 			$biditem = $this->Biditems->patchEntity($biditem, $requestData);
+			// パスワード確認入力
+			$biditem->errors('password_confirm', '確認用パスワードが不一致です。');
 			// $biditemを保存する
 			if ($this->Biditems->save($biditem)) {
 				$ext = pathinfo($biditem->image_name, PATHINFO_EXTENSION);

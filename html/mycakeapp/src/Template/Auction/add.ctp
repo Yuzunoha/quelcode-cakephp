@@ -10,6 +10,7 @@
 	echo $this->Form->control('image', ['type' => 'file']); // image_name(255)に加工する
 	echo $this->Form->hidden('finished', ['value' => 0]);
 	echo $this->Form->control('endtime');
+	echo $this->Form->control('password_confirm', ['type' => 'text']);
 	?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>
